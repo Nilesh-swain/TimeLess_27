@@ -1,33 +1,27 @@
-# 🌍 ECOPULSE  
+# 🌍 PRITHVILOK  
 ### A Decentralized Climate Intelligence & Action Platform
-
-<p align="center">
-  <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" width="90%">
-</p>
 
 > **Track the planet. Organize the people. Act with data.**
 
-ECOPULSE is a **one-stop, decentralized climate change platform** that integrates **real-time environmental intelligence**, **AI-powered tools**, and a **community-driven social network** to enable informed discussion, collective action, and measurable environmental impact.
+PRITHVILOK is a **one-stop, decentralized climate change platform** that integrates **real-time environmental intelligence**, **AI-powered tools**, and a **community-driven social network** to enable informed discussion, collective action, and measurable environmental impact.
 
 This is not just a monitoring app.  
 This is **climate infrastructure for the digital age**.
 
 ---
 
-## 🚀 Why ECOPULSE?
+## 🚀 Why PRITHVILOK?
 
 Climate change is a **systems-level crisis** involving air, water, waste, public behavior, and policy.
 
 Most platforms only display environmental data.  
-**ECOPULSE goes further by enabling prediction, action, and collective mobilization.**
+**PRITHVILOK goes further by enabling prediction, action, and collective mobilization.**
 
 ---
 
 ## 🧠 Core Modules
 
 ### 🌫️ Air Pollution Intelligence
-<img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789" width="80%">
-
 - Real-time AQI monitoring  
 - AI-based pollution prediction  
 - Pollution source analysis  
@@ -36,8 +30,6 @@ Most platforms only display environmental data.
 ---
 
 ### ♻️ Waste Management & Segregation
-<img src="https://images.unsplash.com/photo-1581579185169-6a6b1b2c0d8f" width="80%">
-
 - Nearby dustbin & recycling center locator  
 - AI-based waste segregation using image recognition  
 - Proper disposal guidance  
@@ -46,8 +38,6 @@ Most platforms only display environmental data.
 ---
 
 ### 💧 Water Quality Monitoring
-<img src="https://images.unsplash.com/photo-1508873699372-7aeab60b44e8" width="80%">
-
 - Water safety indicators (pH, TDS, turbidity)  
 - Location-based water insights  
 - Contamination alerts and conservation tips  
@@ -55,18 +45,14 @@ Most platforms only display environmental data.
 ---
 
 ### 🤖 Climate AI Assistant
-<img src="https://images.unsplash.com/photo-1677442136019-21780ecad995" width="70%">
-
 - Everyday sustainability guidance  
 - Context-aware responses based on location and environment  
 - Acts as a personal climate mentor  
 
 ---
 
-### 🌐 Decentralized Climate Community
+### 🌐 Decentralized Climate Community  
 *A Twitter-like network for climate action*
-
-<img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d" width="85%">
 
 - Climate updates and alerts  
 - Discussion threads and debates  
@@ -130,10 +116,10 @@ Copy code
 
 ---
 
-## 🧩 What Makes ECOPULSE Different?
+## 🧩 What Makes PRITHVILOK Different?
 
-| Feature | Typical Apps | ECOPULSE |
-|-------|--------------|----------|
+| Feature | Typical Apps | PRITHVILOK |
+|-------|--------------|------------|
 | Pollution | Monitoring only | Prediction + Action |
 | Waste | Manual info | AI-based segregation |
 | Community | Centralized | Decentralized |
@@ -176,4 +162,4 @@ Open-source (license to be defined)
 Climate change isn’t a future problem.  
 It’s today’s air, today’s water, today’s waste.
 
-**ECOPULSE exists to turn awareness into action.**
+**PRITHVILOK exists to turn awareness into action.**
