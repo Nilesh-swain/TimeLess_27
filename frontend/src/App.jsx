@@ -1,13 +1,12 @@
-import React from 'react'
+import { BrowserRouter } from 'react-router-dom';
+import AppNavigator from './navigation/AppNavigator';
 
-const App = () => {
+function App() {
   return (
-    <div className='bg-amber-500'>
-       <h1 className="text-3xl font-bold underline bg-amber-600">
-    Hello world!
-  </h1>
-    </div>
-  )
+    <BrowserRouter>
+      <AppNavigator />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

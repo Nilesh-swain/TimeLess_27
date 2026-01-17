@@ -1,1 +1,149 @@
 @import "tailwindcss";
+/* Container for the user location icon */
+.user-location-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Increased size for the static blue dot */
+.blue-dot {
+  width: 20px; /* Increased from 14px */
+  height: 20px; /* Increased from 14px */
+  background-color: #007bff;
+  border: 3px solid white; /* Thicker border for better visibility */
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0,0,0,0.4);
+  z-index: 2;
+  position: absolute;
+}
+
+/* Increased size for the pulse animation */
+.pulse {
+  width: 20px; 
+  height: 20px;
+  background-color: rgba(0, 123, 255, 0.4);
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+  animation: pulse-animation 2.5s infinite ease-out; /* Slightly slower for a "heavy" feel */
+}
+
+@keyframes pulse-animation {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(5); /* Increased scale from 4 to 5 for a wider circle */
+    opacity: 0;
+  }
+}
+/* Container for the dustbin marker */
+.custom-bin-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The actual pill/bubble */
+.bin-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #16a34a; /* Green-600 */
+  color: white;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 2px solid white;
+  transition: transform 0.2s;
+}
+
+.bin-pill:hover {
+  transform: scale(1.1);
+  background-color: #15803d; /* Green-700 */
+}
+
+/* Small triangle pointing down to the exact spot */
+.bin-pill::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #16a34a;
+}
+
+/* Container for the dustbin marker */
+.custom-bin-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The actual pill/bubble with Jump animation */
+.bin-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #16a34a; 
+  color: white;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
+  border: 2px solid white;
+  position: relative;
+  
+  /* Animation properties */
+  animation: jump-float 2s infinite ease-in-out;
+}
+
+/* Jump/Float Animation */
+@keyframes jump-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); /* Moves up 10px */
+  }
+}
+
+/* Pointer Triangle */
+.bin-pill::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 8px solid #16a34a;
+}
+
+/* Optional: Slight shadow change during jump */
+.custom-bin-label::before {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    width: 20px;
+    height: 5px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
+    filter: blur(2px);
+    animation: shadow-scale 2s infinite ease-in-out;
+}
+
+@keyframes shadow-scale {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(0.6); opacity: 0.1; }
+}
