@@ -34,7 +34,7 @@ const DashboardLayout = () => {
             <Activity className="text-white" size={24} />
           </div>
           <span className="text-xl font-black uppercase tracking-widest text-green-50">
-            EcoPulse
+            PrithviLok
           </span>
         </div>
 
