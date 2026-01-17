@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Eco Warrior",
+    "handle": "@ecowarrior",
+    "email": "ecowarrior@example.com",
+    "avatar": "assets/images/default-avatar.png",
+    "bio": "Passionate about environmental sustainability and climate action 🌍",
+    "followers": 234,
+    "following": 89,
+    "posts": 42,
+    "wallet": null
+  },
+  {
+    "id": 2,
+    "name": "Green Advocate",
+    "handle": "@greenadvocate",
+    "email": "green@example.com",
+    "avatar": "assets/images/default-avatar.png",
+    "bio": "Fighting for a plastic-free world one action at a time ♻️",
+    "followers": 567,
+    "following": 123,
+    "posts": 87,
+    "wallet": null
+  },
+  {
+    "id": 3,
+    "name": "Solar Power Fan",
+    "handle": "@solarpowerfan",
+    "email": "solar@example.com",
+    "avatar": "assets/images/default-avatar.png",
+    "bio": "Advocate for renewable energy and sustainable living ☀️",
+    "followers": 412,
+    "following": 156,
+    "posts": 65,
+    "wallet": null
+  }
+]

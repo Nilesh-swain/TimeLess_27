@@ -1,0 +1,28 @@
+<svg width="500" height="300" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="oceanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0891B2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Water -->
+  <rect width="500" height="300" fill="url(#oceanGrad)"/>
+  <!-- Waves -->
+  <path d="M 0 200 Q 125 180 250 200 T 500 200 L 500 300 L 0 300 Z" fill="#0E7490" opacity="0.6"/>
+  <path d="M 0 220 Q 125 210 250 220 T 500 220 L 500 300 L 0 300 Z" fill="#06B6D4" opacity="0.4"/>
+  <!-- Fish silhouettes -->
+  <g opacity="0.7">
+    <ellipse cx="80" cy="120" rx="25" ry="12" fill="#059669"/>
+    <polygon points="105,120 120,115 120,125" fill="#059669"/>
+  </g>
+  <g opacity="0.6">
+    <ellipse cx="300" cy="80" rx="30" ry="14" fill="#10B981"/>
+    <polygon points="330,80 350,73 350,87" fill="#10B981"/>
+  </g>
+  <!-- Sun reflection -->
+  <ellipse cx="450" cy="40" rx="35" ry="30" fill="#FCD34D" opacity="0.3"/>
+  <!-- Air bubbles -->
+  <circle cx="100" cy="150" r="5" fill="#FFFFFF" opacity="0.5"/>
+  <circle cx="250" cy="160" r="4" fill="#FFFFFF" opacity="0.4"/>
+  <circle cx="380" cy="140" r="6" fill="#FFFFFF" opacity="0.5"/>
+</svg>

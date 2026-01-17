@@ -1,0 +1,245 @@
+/* ========================================
+   GROUP CONTAINER
+   ======================================== */
+
+.groups-container,
+.group-container {
+    background: var(--bg-primary);
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    min-height: 100vh;
+}
+
+/* ========================================
+   GROUPS LIST PAGE
+   ======================================== */
+
+.groups-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.groups-header h2 {
+    margin-bottom: 15px;
+}
+
+.groups-search {
+    display: flex;
+}
+
+.groups-search input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+}
+
+.groups-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.group-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.group-card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.group-card-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.group-card-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.group-card-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.group-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.group-card-action {
+    width: 100%;
+    padding: 8px;
+    background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+.group-card-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+}
+
+.group-card-action.joined {
+    background: var(--bg-secondary);
+    color: #22C55E;
+    border: 2px solid #22C55E;
+}
+
+/* ========================================
+   SINGLE GROUP PAGE
+   ======================================== */
+
+.group-header {
+    background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.group-header h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.group-header p {
+    font-size: 16px;
+    opacity: 0.95;
+}
+
+.group-content {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .group-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.group-info-panel {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+.group-info-panel h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.group-info-panel p {
+    font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.group-info-panel .btn {
+    width: 100%;
+    margin: 0;
+}
+
+.group-feed-panel {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.group-feed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.group-feed-header h3 {
+    margin: 0;
+}
+
+.group-feed-header .btn {
+    margin: 0;
+    width: auto;
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+.group-feed {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+/* ========================================
+   LOADING & EMPTY STATES
+   ======================================== */
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-state h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-size: 14px;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 640px) {
+    .groups-list {
+        grid-template-columns: 1fr;
+    }
+
+    .group-header {
+        padding: 20px;
+    }
+
+    .group-header h2 {
+        font-size: 22px;
+    }
+
+    .group-content {
+        padding: 15px;
+    }
+}

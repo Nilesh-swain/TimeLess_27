@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "author": "Eco Warrior",
+    "handle": "@ecowarrior",
+    "avatar": "assets/images/default-avatar.png",
+    "text": "Just planted 100 trees in our community garden! Every action counts towards a greener future. 🌱🌳",
+    "image": null,
+    "hashtags": ["#TreePlanting", "#ClimateAction", "#Community"],
+    "location": "Central Park",
+    "timestamp": "2 hours ago",
+    "likes": 234,
+    "replies": 45,
+    "reposts": 67,
+    "liked": false
+  },
+  {
+    "id": 2,
+    "author": "Green Advocate",
+    "handle": "@greenadvocate",
+    "avatar": "assets/images/default-avatar.png",
+    "text": "Did you know? Reducing plastic use by just 50% can save tons of ocean waste annually. Let's make the switch! 🌍♻️",
+    "image": null,
+    "hashtags": ["#ZeroWaste", "#PlasticFree", "#SustainableLiving"],
+    "location": "Global",
+    "timestamp": "4 hours ago",
+    "likes": 567,
+    "replies": 89,
+    "reposts": 234,
+    "liked": false
+  },
+  {
+    "id": 3,
+    "author": "Solar Power Fan",
+    "handle": "@solarpowerfan",
+    "avatar": "assets/images/default-avatar.png",
+    "text": "Our school just installed solar panels! Reduced electricity costs by 40% and we're teaching kids about renewable energy. Win-win! ☀️",
+    "image": null,
+    "hashtags": ["#RenewableEnergy", "#SolarPower", "#Education"],
+    "location": "Boston, MA",
+    "timestamp": "6 hours ago",
+    "likes": 412,
+    "replies": 67,
+    "reposts": 145,
+    "liked": false
+  }
+]
