@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import { v2 as cloudinary } from 'cloudinary';
 import dustbinRoutes from './routes/dustbin.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 // 2. DEBUG: Verify keys are loading
 console.log("Key Check:", process.env.CLOUDINARY_KEY ? "LOADED" : "MISSING");
@@ -26,6 +27,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/dustbins', dustbinRoutes);
+app.use('/api/auth', authRoutes);
 
 // Database & Server Start
 const PORT = process.env.PORT || 5000;

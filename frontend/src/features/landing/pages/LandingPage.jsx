@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use } from 'react';
 import { 
   Wind, 
   Trash2, 
@@ -10,8 +10,11 @@ import {
   Globe, 
   BarChart3 
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
+    const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-[#0a0f0d] text-gray-100 font-sans selection:bg-green-500/30">
       
@@ -50,7 +53,10 @@ const LandingPage = () => {
             The all-in-one ecosystem unifying air, water, and waste insights into a single intelligent dashboard powered by AI and community participation.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="w-full sm:w-auto bg-green-600 hover:bg-green-500 text-white px-10 py-4 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-2 group">
+            <button 
+              onClick={() => navigate("/dashboard")} 
+              className="w-full sm:w-auto bg-green-600 hover:bg-green-500 text-white px-10 py-4 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-2 group"
+            >
               Get Started Free
               <ArrowRight className="group-hover:translate-x-1 transition-transform" />
             </button>

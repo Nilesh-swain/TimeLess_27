@@ -8,11 +8,16 @@ import OverviewPage from "../features/overview/pages/OverviewPage";
 import DashboardLayout from "../layout/DashboardLayout";
 import EchoBotPage from "../features/chat/pages/EchoBotPage";
 import SegregatorPage from "../features/segregator/pages/SegregatorPage";
+import SignupPage from "../features/auth/pages/SignupPage";
+import SigninPage from "../features/auth/pages/SigninPage";
 
 const AppNavigator = () => {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/signin" element={<SigninPage />} />
+
       <Route path="/map" element={<MapPage />} />
       {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
       <Route path="/dashboard" element={<DashboardLayout />}>

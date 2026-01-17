@@ -3,14 +3,14 @@ import {
   Camera, 
   Upload, 
   X, 
-  RefreshCcw, 
   ShieldCheck, 
   Info, 
-  Trash2, 
   Leaf,
   Loader2,
   Activity,
-  AlertCircle
+  AlertCircle,
+  Recycle,
+  Trash
 } from 'lucide-react';
 
 const SegregatorPage = () => {
@@ -24,19 +24,16 @@ const SegregatorPage = () => {
     const file = event.target.files[0];
     if (!file) return;
 
-    // 1. Show Preview
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setSelectedImage(reader.result);
-    };
+    reader.onloadend = () => setSelectedImage(reader.result);
     reader.readAsDataURL(file);
 
-    // 2. Start API Call
     setIsAnalyzing(true);
     setError(null);
+    setResult(null);
 
     const formData = new FormData();
-    formData.append('file', file); // API expects a file in 'file' field
+    formData.append('file', file);
 
     try {
       const response = await fetch("https://wasteclassificationan.onrender.com/classify-waste", {
@@ -44,37 +41,27 @@ const SegregatorPage = () => {
         body: formData,
       });
 
-
       if (!response.ok) throw new Error("Classification failed");
 
       const data = await response.json();
-      console.log(data)
       
-      // 3. Map API Response to UI
-      // Adjusting based on standard classification API outputs (category/label)
-      setResult({
-        item: data.class || data.label || "Detected Waste",
-        category: data.category || "Segregated Material",
-        confidence: data.confidence ? `${(data.confidence * 100).toFixed(1)}%` : "N/A",
-        instructions: getInstructions(data.class || data.label),
-        points: 50
-      });
+      if (data.is_waste) {
+        // Map the new API fields to our State
+        setResult({
+          type: data.waste_type,
+          bin: data.recommended_bin,
+          decomposition: data.decomposition_method,
+          instruction: data.disposal_instruction,
+          points: 50
+        });
+      } else {
+        setError(data.message || "Item not recognized as waste.");
+      }
     } catch (err) {
-      console.error("API Error:", err);
-      setError("Unable to classify this image. Please ensure the item is clear.");
+      setError("AI Server connection error. Please try again.");
     } finally {
       setIsAnalyzing(false);
     }
-  };
-
-  // Helper to provide instructions based on detected class
-  const getInstructions = (label) => {
-    const l = label?.toLowerCase() || "";
-    if (l.includes("plastic")) return "Rinse any food residue, crush the bottle, and place it in the BLUE recycling bin.";
-    if (l.includes("paper") || l.includes("cardboard")) return "Ensure it is dry and free of oil. Flatten boxes and place in the BLUE bin.";
-    if (l.includes("metal") || l.includes("can")) return "Rinse thoroughly. Metal is infinitely recyclable. Place in BLUE bin.";
-    if (l.includes("glass")) return "Handle with care. If broken, wrap in paper before disposal in BLUE bin.";
-    return "Dispose of this as per local municipality guidelines for general waste.";
   };
 
   const resetScanner = () => {
@@ -85,104 +72,105 @@ const SegregatorPage = () => {
   };
 
   return (
-    <div className="p-6 lg:p-10 max-w-6xl mx-auto space-y-8">
+    <div className="p-6 lg:p-10 max-w-6xl mx-auto space-y-8 text-white">
       
       {/* HEADER */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-black text-white">AI Segregator</h2>
-          <p className="text-gray-500 font-medium">Powered by WasteClassificationAI</p>
+          <h2 className="text-3xl font-black italic tracking-tight">AI SEGREGATOR</h2>
+          <p className="text-gray-500 font-medium text-sm">Real-time Material Classification</p>
         </div>
         {selectedImage && (
-          <button 
-            onClick={resetScanner}
-            className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 text-gray-300 rounded-2xl font-bold transition-all border border-white/10"
-          >
-            <X size={20} />
-            New Scan
+          <button onClick={resetScanner} className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 rounded-xl font-bold transition-all border border-white/10">
+            <X size={18} /> New Scan
           </button>
         )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         
-        {/* LEFT SIDE: PREVIEW */}
-        <div className="space-y-6">
+        {/* LEFT: IMAGE PREVIEW */}
+        <div className="relative group overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/5 h-[500px] flex items-center justify-center">
           {!selectedImage ? (
-            <div 
-              onClick={() => fileInputRef.current.click()}
-              className="h-[450px] border-4 border-dashed border-white/5 rounded-[3rem] bg-white/5 hover:bg-white/10 hover:border-green-500/30 transition-all cursor-pointer flex flex-col items-center justify-center text-center p-10 group"
-            >
-              <div className="w-20 h-20 bg-green-600/20 rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Camera size={40} className="text-green-500" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-200">Upload Waste Photo</h3>
-              <p className="text-gray-500 text-sm mt-2 max-w-xs">AI will automatically detect if it's plastic, paper, metal, or organic.</p>
-              <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
+            <div onClick={() => fileInputRef.current.click()} className="w-full h-full flex flex-col items-center justify-center cursor-pointer hover:bg-white/5 transition-all group">
+               <div className="w-20 h-20 bg-green-500/20 rounded-3xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Camera size={32} className="text-green-500" />
+               </div>
+               <p className="font-bold text-gray-400">Capture or Upload Photo</p>
+               <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
             </div>
           ) : (
-            <div className="relative group overflow-hidden rounded-[3rem] border border-white/10 shadow-2xl h-[450px]">
+            <>
               <img src={selectedImage} alt="Preview" className="w-full h-full object-cover" />
               {isAnalyzing && (
-                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center">
+                <div className="absolute inset-0 bg-black/70 backdrop-blur-md flex flex-col items-center justify-center">
                   <Loader2 className="text-green-500 animate-spin mb-4" size={48} />
-                  <p className="text-green-500 font-black tracking-widest text-xs">AI CLASSIFYING...</p>
+                  <p className="text-green-500 font-black tracking-widest text-xs uppercase">Analyzing Molecular Structure...</p>
                 </div>
               )}
-            </div>
+            </>
           )}
         </div>
 
-        {/* RIGHT SIDE: RESULTS */}
+        {/* RIGHT: AI INSIGHTS */}
         <div className="space-y-6">
-          {error ? (
-            <div className="p-8 rounded-[3rem] bg-red-500/10 border border-red-500/20 text-center">
+          {error && (
+            <div className="p-8 rounded-[2.5rem] bg-red-500/10 border border-red-500/20 text-center animate-in zoom-in">
               <AlertCircle className="text-red-500 mx-auto mb-4" size={40} />
-              <p className="text-red-500 font-bold">{error}</p>
-              <button onClick={resetScanner} className="mt-4 text-sm font-bold text-gray-400 underline">Try again</button>
+              <p className="text-red-400 font-bold">{error}</p>
             </div>
-          ) : result ? (
-            <div className="space-y-6 animate-in slide-in-from-right-8 duration-500">
-              <div className="p-8 rounded-[3rem] bg-gradient-to-br from-green-600 to-emerald-700 shadow-2xl">
-                <div className="flex justify-between items-start mb-6">
-                  <ShieldCheck className="text-white" size={32} />
-                  <span className="bg-white/20 text-white text-[10px] font-black uppercase px-4 py-1.5 rounded-full">
-                    AI Accuracy: {result.confidence}
-                  </span>
-                </div>
-                <h3 className="text-4xl font-black text-white mb-2 capitalize">{result.item}</h3>
-                <p className="text-green-100/80 font-bold uppercase tracking-widest text-xs">Detected Material</p>
-              </div>
+          )}
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-6 rounded-[2rem] bg-white/5 border border-white/5">
-                  <Leaf className="text-emerald-400 mb-2" size={20} />
-                  <p className="text-2xl font-black text-white">RECYCLABLE</p>
-                  <p className="text-[10px] text-gray-500 font-bold uppercase">Status</p>
-                </div>
-                <div className="p-6 rounded-[2rem] bg-white/5 border border-white/5">
-                  <Activity className="text-amber-400 mb-2" size={20} />
-                  <p className="text-2xl font-black text-white">+{result.points}</p>
-                  <p className="text-[10px] text-gray-500 font-bold uppercase">Eco Points</p>
+          {result && (
+            <div className="space-y-6 animate-in slide-in-from-bottom-4 duration-500">
+              {/* Main Classification Card */}
+              <div className="p-8 rounded-[2.5rem] bg-gradient-to-br from-green-600 to-emerald-800 shadow-2xl relative overflow-hidden">
+                <ShieldCheck className="absolute -right-4 -bottom-4 text-white/10 w-40 h-40" />
+                <div className="relative z-10">
+                  <div className="flex justify-between items-center mb-6">
+                    <span className="px-3 py-1 bg-white/20 rounded-lg text-[10px] font-black uppercase tracking-wider">AI Verified</span>
+                    <span className="flex items-center gap-1 text-green-200 text-xs font-bold">
+                       <Activity size={14} /> +{result.points} Points
+                    </span>
+                  </div>
+                  <h3 className="text-4xl font-black mb-2">{result.type}</h3>
+                  <div className="flex items-center gap-2 text-green-100/80 font-bold text-sm uppercase tracking-widest">
+                    <Recycle size={16} /> Recommended Bin: <span className="text-white underline decoration-white/40">{result.bin}</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="p-8 rounded-[2.5rem] bg-[#0d1311] border border-white/5 flex gap-5">
-                <div className="shrink-0 w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500">
-                  <Info size={24} />
+              {/* Data Grid */}
+              <div className="grid grid-cols-1 gap-4">
+                {/* Decomposition Info */}
+                <div className="p-6 rounded-3xl bg-white/5 border border-white/10 flex gap-4">
+                  <div className="p-3 bg-blue-500/10 rounded-2xl h-fit text-blue-400">
+                    <Leaf size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Biological Impact</h4>
+                    <p className="text-sm text-gray-300 leading-relaxed">{result.decomposition}</p>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  <span className="block font-bold text-gray-200 mb-1">Disposal Guidance:</span>
-                  {result.instructions}
-                </p>
+
+                {/* Disposal Instructions */}
+                <div className="p-6 rounded-3xl bg-white/5 border border-white/10 flex gap-4">
+                  <div className="p-3 bg-amber-500/10 rounded-2xl h-fit text-amber-400">
+                    <Trash size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Disposal Instructions</h4>
+                    <p className="text-sm text-gray-300 leading-relaxed">{result.instruction}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          ) : (
-            <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-center p-10 border-2 border-dashed border-white/5 rounded-[3rem]">
-              <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4">
-                <Upload className="text-gray-600" size={24} />
-              </div>
-              <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">Waiting for Scan...</p>
+          )}
+
+          {!result && !error && !isAnalyzing && (
+            <div className="h-full min-h-[400px] border-2 border-dashed border-white/5 rounded-[2.5rem] flex flex-col items-center justify-center text-gray-600">
+               <Upload size={48} className="mb-4 opacity-20" />
+               <p className="font-bold uppercase tracking-widest text-[10px]">Awaiting system input</p>
             </div>
           )}
         </div>
