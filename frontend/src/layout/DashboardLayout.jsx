@@ -3,15 +3,13 @@ import { Outlet, NavLink, useLocation } from "react-router-dom";
 import {
   TrendingUp,
   MapPin,
-  Wind,
-  Droplets,
   Camera,
   MessageSquare,
   Activity,
   Bell,
-  Search,
   User,
   Bot,
+  Trophy, // 👑 ADDED
 } from "lucide-react";
 
 const DashboardLayout = () => {
@@ -19,9 +17,10 @@ const DashboardLayout = () => {
 
   const getPageTitle = () => {
     const path = location.pathname.split("/").pop();
-    if (path === "echobot") return "Echo AI Bot";
+    if (path === "chatbot") return "Echo AI Bot";
     if (path === "segregator") return "AI Segregator";
     if (path === "map") return "Nearby Dustbins";
+    if (path === "leadership") return "Community Leaderboard";
     return path ? path.charAt(0).toUpperCase() + path.slice(1) : "Overview";
   };
 
@@ -44,22 +43,32 @@ const DashboardLayout = () => {
             icon={<TrendingUp size={20} />}
             label="Overview"
           />
+
           <SidebarItem
             to="/dashboard/map"
             icon={<MapPin size={20} />}
             label="Dustbins Near You"
           />
+
           <SidebarItem
             to="/dashboard/segregator"
             icon={<Camera size={20} />}
             label="AI Segregator"
           />
+
           <SidebarItem
             to="/dashboard/chatbot"
             icon={<Bot size={20} className="text-emerald-400" />}
             label="Echo Bot"
           />
-          
+
+          {/* 👑 COMMUNITY LEADER */}
+          <SidebarItem
+            to="/dashboard/leadership"
+            icon={<Trophy size={20} className="text-yellow-400" />}
+            label="Community Leaderboard"
+          />
+
           {/* --- EXTERNAL COMMUNITY LINK --- */}
           <SidebarItem
             as="a"
@@ -82,18 +91,18 @@ const DashboardLayout = () => {
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* --- FIXED NAVBAR --- */}
         <header className="h-20 bg-[#080b0a]/80 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-8 shrink-0 z-20">
-          <div className="flex items-center gap-8">
-            <h2 className="text-xl font-black tracking-tight">
-              {getPageTitle()}
-            </h2>
-          </div>
+          <h2 className="text-xl font-black tracking-tight">
+            {getPageTitle()}
+          </h2>
 
           <div className="flex items-center gap-4">
             <button className="relative p-2.5 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition">
               <Bell size={20} />
               <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-[#080b0a]" />
             </button>
+
             <div className="h-10 w-px bg-white/5 mx-2" />
+
             <div className="flex items-center gap-3">
               <div className="text-right hidden sm:block">
                 <p className="text-[10px] font-black text-green-500 uppercase leading-none">
@@ -115,38 +124,30 @@ const DashboardLayout = () => {
   );
 };
 
-/* --- UPDATED SIDEBAR ITEM COMPONENT --- */
+/* --- SIDEBAR ITEM COMPONENT --- */
 const SidebarItem = ({ to, href, as, icon, label }) => {
-  // Shared styling for both internal and external links
   const baseStyles = `
     flex items-center gap-4 px-4 py-3.5 rounded-2xl font-bold text-sm transition-all
     text-gray-500 hover:bg-white/5 hover:text-gray-300
   `;
-  
-  const activeStyles = "bg-green-600 text-white shadow-lg shadow-green-900/30";
 
-  // If 'as="a"' is passed, render a standard anchor tag for external folders/projects
+  const activeStyles =
+    "bg-green-600 text-white shadow-lg shadow-green-900/30";
+
   if (as === "a") {
     return (
-      <a 
-        href={href} 
-        className={baseStyles}
-        // Optional: uncomment below to open in a new tab
-        // target="_blank" 
-        // rel="noopener noreferrer"
-      >
+      <a href={href} className={baseStyles}>
         {icon}
         <span>{label}</span>
       </a>
     );
   }
 
-  // Otherwise, render a NavLink for internal React routing
   return (
     <NavLink
       to={to}
       end={to === "/dashboard"}
-      className={({ isActive }) => 
+      className={({ isActive }) =>
         isActive ? `${baseStyles} ${activeStyles}` : baseStyles
       }
     >

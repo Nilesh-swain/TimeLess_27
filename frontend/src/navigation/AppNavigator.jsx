@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import NotFound from "../global/pages/NotFound";
 import MapPage from "../features/map/pages/MapPage";
@@ -11,22 +11,29 @@ import SegregatorPage from "../features/segregator/pages/SegregatorPage";
 import SignupPage from "../features/auth/pages/SignupPage";
 import SigninPage from "../features/auth/pages/SigninPage";
 
+// 🔥 ADD THIS IMPORT
+import LeadershipPage from "../features/leadership/LeadershipPage";
+
 const AppNavigator = () => {
   return (
     <Routes>
+      {/* Public Pages */}
       <Route path="/" element={<LandingPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/signin" element={<SigninPage />} />
 
+      {/* Standalone Pages */}
       <Route path="/map" element={<MapPage />} />
-      {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
+      <Route path="/leadership" element={<LeadershipPage />} />
+
+      {/* Dashboard Layout */}
       <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<OverviewPage />} /> {/* Default page at /dashboard */}
-          <Route path="map" element={<MapPage />} />
-          <Route path="chatbot" element={<EchoBotPage />} />
-          <Route path="segregator" element={<SegregatorPage />} />
-          {/* Add more feature routes here */}
-        </Route>
+        <Route index element={<OverviewPage />} />
+        <Route path="map" element={<MapPage />} />
+        <Route path="chatbot" element={<EchoBotPage />} />
+        <Route path="segregator" element={<SegregatorPage />} />
+        <Route path="leadership" element={<LeadershipPage />} />
+      </Route>
 
       {/* 404 */}
       <Route path="*" element={<NotFound />} />
