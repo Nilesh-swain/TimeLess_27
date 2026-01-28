@@ -9,7 +9,8 @@ import {
   Bell,
   User,
   Bot,
-  Trophy, // 👑 ADDED
+  Trophy,
+  BarChart3, // 📊 ADDED for Analytics
 } from "lucide-react";
 
 const DashboardLayout = () => {
@@ -17,10 +18,13 @@ const DashboardLayout = () => {
 
   const getPageTitle = () => {
     const path = location.pathname.split("/").pop();
+    // Logic for mapping paths to readable titles
     if (path === "chatbot") return "Echo AI Bot";
     if (path === "segregator") return "AI Segregator";
     if (path === "map") return "Nearby Dustbins";
     if (path === "leadership") return "Community Leaderboard";
+    if (path === "analytics") return "Data Analytics"; // 📈 ADDED
+    
     return path ? path.charAt(0).toUpperCase() + path.slice(1) : "Overview";
   };
 
@@ -44,6 +48,13 @@ const DashboardLayout = () => {
             label="Overview"
           />
 
+          {/* 📊 ANALYTICS ITEM ADDED */}
+          <SidebarItem
+            to="/dashboard/analytics"
+            icon={<BarChart3 size={20} />}
+            label="Analytics"
+          />
+
           <SidebarItem
             to="/dashboard/map"
             icon={<MapPin size={20} />}
@@ -62,14 +73,12 @@ const DashboardLayout = () => {
             label="Echo Bot"
           />
 
-          {/* 👑 COMMUNITY LEADER */}
           <SidebarItem
             to="/dashboard/leadership"
             icon={<Trophy size={20} className="text-yellow-400" />}
             label="Community Leaderboard"
           />
 
-          {/* --- EXTERNAL COMMUNITY LINK --- */}
           <SidebarItem
             as="a"
             href="http://127.0.0.1:5500/TimeLess/environment-twitter/login.html"
@@ -89,7 +98,6 @@ const DashboardLayout = () => {
 
       {/* --- 2. MAIN CONTENT AREA --- */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* --- FIXED NAVBAR --- */}
         <header className="h-20 bg-[#080b0a]/80 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-8 shrink-0 z-20">
           <h2 className="text-xl font-black tracking-tight">
             {getPageTitle()}
@@ -115,7 +123,6 @@ const DashboardLayout = () => {
           </div>
         </header>
 
-        {/* --- DYNAMIC PAGE CONTENT --- */}
         <main className="flex-1 overflow-y-auto bg-[#080b0a] relative">
           <Outlet />
         </main>

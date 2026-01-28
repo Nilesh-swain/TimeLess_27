@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Sparkles, Paperclip, Mic, AlertCircle } from 'lucide-react';
+import { Send, Bot, User, Sparkles, Paperclip, Mic, AlertCircle, MapPin } from 'lucide-react';
 
 const EchoBotPage = () => {
   const [messages, setMessages] = useState([
@@ -11,6 +11,7 @@ const EchoBotPage = () => {
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [locationPermission, setLocationPermission] = useState(false); // New State
   const scrollRef = useRef(null);
 
   // Auto-scroll to bottom
@@ -37,7 +38,10 @@ const EchoBotPage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ question: userQuery }), // Assuming the API expects { message: "..." }
+        body: JSON.stringify({ 
+            question: userQuery,
+            useLocation: locationPermission // Passing permission status to API
+        }), 
       });
 
       const data = await response.json();
@@ -46,8 +50,7 @@ const EchoBotPage = () => {
         const botResponse = {
           id: Date.now() + 1,
           role: 'bot',
-          // Adjust 'data.response' based on your actual API key name (e.g., data.reply or data.answer)
-          content: data.answer || data.answer || "I processed your request but couldn't formulate a reply."
+          content: data.answer || "I processed your request but couldn't formulate a reply."
         };
         setMessages(prev => [...prev, botResponse]);
       } else {
@@ -69,6 +72,27 @@ const EchoBotPage = () => {
   return (
     <div className="flex flex-col h-[calc(100vh-80px)] bg-[#080b0a]">
       
+      {/* --- LOCATION PERMISSION SECTION --- */}
+      <div className="bg-white/5 border-b border-white/10 px-6 py-3">
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <MapPin size={18} className={locationPermission ? "text-green-500" : "text-gray-500"} />
+            <span className="text-xs font-medium text-gray-300 uppercase tracking-widest">Regional Intelligence</span>
+          </div>
+          <label className="flex items-center gap-3 cursor-pointer group">
+            <span className="text-[10px] text-gray-500 uppercase font-bold group-hover:text-gray-300 transition-colors">
+              Enable local suggestions
+            </span>
+            <input 
+              type="checkbox" 
+              checked={locationPermission}
+              onChange={(e) => setLocationPermission(e.target.checked)}
+              className="w-4 h-4 rounded border-white/10 bg-white/5 text-green-600 focus:ring-offset-0 focus:ring-green-500"
+            />
+          </label>
+        </div>
+      </div>
+
       {/* --- CHAT AREA --- */}
       <div 
         ref={scrollRef}
@@ -124,7 +148,7 @@ const EchoBotPage = () => {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask anything..."
+            placeholder={locationPermission ? "Ask about your region..." : "Ask anything..."}
             disabled={isTyping}
             className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 pl-6 pr-24 focus:outline-none focus:border-green-500/50 transition-all text-gray-200 disabled:opacity-50"
           />

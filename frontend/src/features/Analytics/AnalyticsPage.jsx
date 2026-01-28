@@ -1,27 +1,15 @@
 import React, { useState, useEffect } from "react";
 import {
-  Globe,
-  Radio,
-  Zap,
-  Shield,
-  ArrowRight,
-  Fingerprint,
-  Cpu,
   Activity,
-  TrendingUp,
-  BarChart3,
-  Layers
+  Radio,
+  Monitor,
+  AlertCircle,
+  Waves,
+  ShieldCheck,
+  Info,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-
-// --- LOCAL IMAGE ASSETS ---
-// These paths match the depth you provided: ../../../assets/
-import img01 from "../../../assets/img03.jpeg";
-import img02 from "../../../assets/img02.jpeg";
-import img03 from "../../../assets/img01.jpeg";
 
 const AnalyticsPage = () => {
-  const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -29,178 +17,215 @@ const AnalyticsPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#000101] text-white font-sans selection:bg-emerald-500/50 overflow-x-hidden">
-      
-      {/* --- BACKGROUND HUD LAYER --- */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(16,185,129,0.07),transparent_50%)]" />
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/carbon-fibre.png")` }} />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
+    <div className="min-h-screen bg-[#020203] text-[#e0e0e0] p-4 lg:p-10 overflow-x-hidden relative">
+
+      {/* BACKGROUND */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-[-10%] right-0 w-[600px] h-[600px] bg-emerald-500/5 blur-[150px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/5 blur-[150px] rounded-full" />
       </div>
 
-      {/* --- HUD NAVIGATION --- */}
-      <nav className="fixed top-0 w-full z-[100] bg-black/60 backdrop-blur-xl border-b border-white/5">
-        <div className="flex items-center justify-between px-8 py-5 max-w-[1600px] mx-auto">
-          <div className="flex items-center gap-3 group cursor-pointer" onClick={() => navigate("/")}>
-            <Fingerprint className="text-emerald-400" size={28} />
-            <div className="flex flex-col">
-              <span className="text-xl font-black tracking-[0.3em] uppercase leading-none">
-                PRITHVI<span className="text-emerald-500">LOK</span>
-              </span>
-              <span className="text-[7px] font-bold text-emerald-500/40 tracking-[0.5em] uppercase">Intelligence Terminal</span>
-            </div>
+      {/* HEADER */}
+      <header className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6 border-b border-white/5 pb-8">
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <div className="h-1 w-12 bg-emerald-500 rounded-full animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-emerald-500/80">
+              Nexus Systems v4.2
+            </span>
           </div>
-          
-          <div className="flex gap-4">
-            <button onClick={() => navigate("/dashboard")} className="px-6 py-2 bg-emerald-500 text-black text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all skew-x-[-15deg]">
-              <span className="inline-block skew-x-[15deg]">Launch Console</span>
-            </button>
-          </div>
+          <h1 className="text-4xl lg:text-6xl font-extralight text-white">
+            Flux{" "}
+            <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">
+              Terminal
+            </span>
+          </h1>
         </div>
-      </nav>
 
-      {/* --- MAIN CONTENT --- */}
-      <main className="relative z-10 pt-32 pb-20 px-6 md:px-10 max-w-[1600px] mx-auto">
-        
-        {/* ANALYTICS HEADER */}
-        <div className="grid lg:grid-cols-2 gap-10 items-end mb-20">
+        <div className="flex items-center gap-4 bg-white/5 border border-white/10 p-2 rounded-2xl">
+          <TopStat icon={<Radio size={14} />} label="Uplink" value="Secure" color="text-emerald-400" />
+          <div className="w-px h-8 bg-white/10" />
+          <TopStat icon={<Monitor size={14} />} label="Engine" value="Active" color="text-blue-400" />
+        </div>
+      </header>
+
+      <div className="relative z-10 grid lg:grid-cols-12 gap-8">
+
+        {/* UPCOMING WEEK STATUS */}
+        <div className="lg:col-span-12 bg-gradient-to-r from-black via-[#08080a] to-black border border-white/5 rounded-[36px] p-8 flex flex-col md:flex-row justify-between gap-6">
           <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
-              <span className="text-[10px] font-black tracking-[0.5em] text-emerald-500 uppercase">Atmospheric Data Stream Active</span>
-            </div>
-            <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none">
-              Weekly <br /> <span className="text-emerald-500 italic">Analysis.</span>
-            </h1>
+            <p className="text-[10px] uppercase tracking-[0.4em] font-black text-gray-500 mb-2">
+              Incoming Week Assessment
+            </p>
+            <h3 className="text-3xl font-light">
+              Status:
+              <span className="ml-3 font-bold text-red-500 animate-pulse">
+                DANGEROUS
+              </span>
+            </h3>
+            <p className="mt-3 text-xs text-gray-400 max-w-xl">
+              High AQI levels expected mid-week. Outdoor exposure discouraged.
+            </p>
           </div>
-          <div className="bg-white/[0.02] border border-white/5 p-8 backdrop-blur-md rounded-sm">
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-[9px] font-black text-gray-500 tracking-widest uppercase">System Forecast</span>
-              <Layers size={14} className="text-emerald-500 opacity-50" />
-            </div>
-            <div className="text-4xl font-black text-emerald-400 font-mono tracking-tighter flex items-baseline gap-2">
-              AQI: 142 <span className="text-xs text-emerald-500/40 font-sans tracking-widest uppercase">Target: Stable</span>
-            </div>
-            <div className="w-full h-[2px] bg-white/5 mt-4 overflow-hidden relative">
-              <div className="absolute inset-0 bg-emerald-500 animate-loading-bar" style={{width: '30%'}} />
+
+          <div className="flex items-center gap-6 bg-black/40 p-6 rounded-3xl border border-red-500/20">
+            <AlertCircle className="text-red-500" size={40} />
+            <div>
+              <p className="text-[9px] uppercase tracking-widest font-black text-gray-500">
+                Risk Index
+              </p>
+              <p className="text-4xl font-mono font-bold text-red-500">
+                8.6 / 10
+              </p>
             </div>
           </div>
         </div>
 
-        {/* --- DATA VISUALIZATION SECTION --- */}
-        <section className="grid lg:grid-cols-12 gap-6 mb-40">
-          {/* Trend Graph Container */}
-          <div className="lg:col-span-8 bg-white/[0.01] border border-white/10 p-10 relative group overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 font-mono text-[8px] text-emerald-500/20">LOG_SEQUENCE: 882-X</div>
-            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-gray-500 mb-12">AQI Trend: Last 7 Cycles</h3>
-            
-            <div className="relative h-72 w-full">
-              <svg className="w-full h-full overflow-visible" viewBox="0 0 800 200">
-                {/* Horizontal Grid */}
-                {[0, 50, 100, 150].map(y => (
-                  <line key={y} x1="0" y1={y} x2="800" y2={y} stroke="white" strokeOpacity="0.03" strokeWidth="1" />
-                ))}
-                {/* Animated Trend Line */}
-                <path
-                  d="M0,160 Q100,130 200,150 T400,70 T600,110 T800,40"
-                  fill="none"
-                  stroke="#10b981"
-                  strokeWidth="3"
-                  strokeDasharray="1000"
-                  strokeDashoffset={isLoaded ? "0" : "1000"}
-                  className="drop-shadow-[0_0_12px_rgba(16,185,129,0.4)] transition-all duration-[3000ms] ease-out"
+        {/* ATMOSPHERIC VARIANCE (UPDATED GRAPH) */}
+        <div className="lg:col-span-8 bg-[#08080a] border border-white/5 rounded-[40px] p-8 shadow-2xl">
+          <h2 className="text-lg text-white/80 flex items-center gap-3 mb-6">
+            <Activity className="text-emerald-500" size={18} />
+            Atmospheric Variance (AQI)
+          </h2>
+
+          <div className="relative h-[260px] w-full">
+
+            {/* Y AXIS */}
+            <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-[9px] text-gray-500 font-mono">
+              <span>300</span>
+              <span>200</span>
+              <span>100</span>
+              <span>0</span>
+            </div>
+
+            <svg
+              className="ml-8 w-[calc(100%-2rem)] h-full"
+              viewBox="0 0 700 250"
+              preserveAspectRatio="none"
+            >
+              {/* GRID */}
+              {[0, 50, 100, 150, 200].map((y, i) => (
+                <line
+                  key={i}
+                  x1="0"
+                  y1={y}
+                  x2="700"
+                  y2={y}
+                  stroke="white"
+                  strokeOpacity="0.05"
                 />
-              </svg>
-              <div className="flex justify-between mt-8 text-[10px] font-black text-gray-600 tracking-[0.2em] uppercase font-mono">
-                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-              </div>
+              ))}
+
+              {/* AQI LINE */}
+              <path
+                d="M0,140 L100,120 L200,160 L300,90 L400,110 L500,150 L600,130"
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="3"
+                strokeDasharray="1200"
+                strokeDashoffset={isLoaded ? "0" : "1200"}
+                className="transition-all duration-[3s]"
+              />
+
+              {/* POINTS */}
+              {[
+                [0, 140],
+                [100, 120],
+                [200, 160],
+                [300, 90],
+                [400, 110],
+                [500, 150],
+                [600, 130],
+              ].map(([x, y], i) => (
+                <circle key={i} cx={x} cy={y} r="5" fill="#10b981" />
+              ))}
+            </svg>
+
+            {/* X AXIS */}
+            <div className="ml-8 mt-3 flex justify-between text-[9px] font-black text-gray-500 tracking-widest">
+              <span>MON</span>
+              <span>TUE</span>
+              <span>WED</span>
+              <span>THU</span>
+              <span>FRI</span>
+              <span>SAT</span>
+              <span>SUN</span>
             </div>
           </div>
-
-          {/* Predictions Sidebar */}
-          <div className="lg:col-span-4 space-y-4">
-            <PredictiveCard day="TOMORROW" aqi="138" status="NOMINAL" />
-            <PredictiveCard day="WEDNESDAY" aqi="156" status="INC_RISK" color="text-red-500" />
-            <PredictiveCard day="THURSDAY" aqi="121" status="OPTIMAL" color="text-blue-400" />
-            <div className="p-8 bg-emerald-500 text-black flex flex-col justify-center items-center text-center cursor-pointer hover:bg-white transition-all group">
-              <Zap size={24} className="mb-2 group-hover:scale-125 transition-transform" />
-              <span className="font-black text-[10px] tracking-[0.3em] uppercase">Sync External Nodes</span>
-            </div>
-          </div>
-        </section>
-
-        {/* --- FEATURE SECTION (IMAGE DRIVEN) --- */}
-        <div className="space-y-48">
-          <FeatureBlock 
-            num="01" img={img01} tag="Infrastucture" title="Dustbin Finder" 
-            desc="Mapping localized disposal units through geospatial intelligence to eliminate urban blind spots." 
-          />
-          <FeatureBlock 
-            num="02" img={img02} tag="Neural Link" title="Eco-Bot Core" reverse
-            desc="A decentralized AI coordinator designed to mobilize environmental groups without social noise." 
-          />
-          <FeatureBlock 
-            num="03" img={img03} tag="Computer Vision" title="AI Segregator" 
-            desc="Automated material recognition protocols to ensure waste streams are optimized for recycling." 
-          />
         </div>
-      </main>
 
-      {/* --- FOOTER --- */}
-      <footer className="py-20 border-t border-white/5 text-center bg-black">
-        <Cpu className="mx-auto text-emerald-500/20 mb-6 animate-spin-slow" size={32} />
-        <p className="text-[8px] font-black tracking-[1em] text-gray-800 uppercase">PrithviLok // v4.0.2 // Intelligence Secure</p>
-      </footer>
+        {/* WEEKLY PROJECTION */}
+        <div className="lg:col-span-4 bg-[#08080a] border border-white/5 rounded-[40px] p-8">
+          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500 mb-6">
+            7-Day Perdition
+          </h3>
 
-      {/* --- ANIMATIONS --- */}
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes loading-bar { 0% { left: -100% } 100% { left: 100% } }
-        .animate-loading-bar { animation: loading-bar 3s linear infinite; }
-        @keyframes spin-slow { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
-        .animate-spin-slow { animation: spin-slow 15s linear infinite; }
-      `}} />
+          <div className="flex items-end justify-between gap-2 h-48">
+            <ProjectionBar day="M" height="50%" val="112" />
+            <ProjectionBar day="T" height="85%" val="188" alert />
+            <ProjectionBar day="W" height="40%" val="98" />
+            <ProjectionBar day="T" height="65%" val="145" />
+            <ProjectionBar day="F" height="55%" val="132" />
+            <ProjectionBar day="S" height="30%" val="84" />
+            <ProjectionBar day="S" height="35%" val="90" />
+          </div>
+
+          <p className="text-[10px] text-gray-500 font-mono mt-6 border-t border-white/5 pt-4">
+            <Info size={12} className="inline mr-2 text-emerald-500" />
+            Mid-week AQI spike expected.
+          </p>
+        </div>
+
+        {/* WATER QUALITY */}
+        <div className="lg:col-span-12 bg-white/[0.02] border border-white/5 rounded-[48px] p-10">
+          <h3 className="text-4xl font-light text-white mb-10">
+            Water <span className="font-bold italic">Pollution Variance</span>
+          </h3>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <WaterInsight icon={<AlertCircle className="text-red-500" />} title="Contamination Alert" desc="Nitrogen spike detected mid-week." />
+            <WaterInsight icon={<Waves className="text-blue-500" />} title="Flow Status" desc="Average flow stable at 4.2 m/s." />
+            <WaterInsight icon={<ShieldCheck className="text-emerald-500" />} title="Bio-Security" desc="Filtration operating at 94% efficiency." />
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 };
 
-// --- SUB-COMPONENTS ---
+/* SUB COMPONENTS */
 
-const PredictiveCard = ({ day, aqi, status, color = "text-emerald-500" }) => (
-  <div className="p-8 bg-white/[0.02] border border-white/5 flex justify-between items-center hover:bg-emerald-500/5 transition-colors group">
+const TopStat = ({ icon, label, value, color }) => (
+  <div className="flex items-center gap-3 px-4 py-1">
+    <div className="text-gray-500">{icon}</div>
     <div>
-      <span className="block text-[8px] font-black text-gray-600 tracking-widest mb-1 uppercase font-mono">{day}</span>
-      <span className="text-xl font-black uppercase tracking-tighter group-hover:text-emerald-400 transition-colors">Forecast</span>
-    </div>
-    <div className="text-right">
-      <span className={`block text-3xl font-mono font-black ${color}`}>{aqi}</span>
-      <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest">{status}</span>
+      <p className="text-[8px] font-black text-gray-500 uppercase tracking-widest">{label}</p>
+      <p className={`text-xs font-bold uppercase ${color}`}>{value}</p>
     </div>
   </div>
 );
 
-const FeatureBlock = ({ num, img, tag, title, desc, reverse }) => (
-  <div className={`flex flex-col lg:flex-row items-center gap-16 md:gap-32 ${reverse ? 'lg:flex-row-reverse' : ''}`}>
-    <div className="w-full lg:w-1/2 relative group">
-      <div className="absolute -top-4 -left-4 w-12 h-12 border-t border-l border-emerald-500/30" />
-      <div className="absolute -bottom-4 -right-4 w-12 h-12 border-b border-r border-emerald-500/30" />
-      <div className="aspect-[16/10] overflow-hidden border border-white/10 relative">
-        <img src={img} alt={title} className="w-full h-full object-cover grayscale brightness-50 contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
-        <div className="absolute bottom-4 left-4 bg-emerald-500 text-black font-black text-[8px] px-2 py-0.5 uppercase tracking-[0.2em]">Live_Feed_Node_0{num}</div>
-      </div>
-    </div>
-    <div className="w-full lg:w-1/2">
-      <div className="flex items-center gap-4 mb-6">
-        <span className="text-emerald-500 font-black text-2xl italic tracking-tighter">{num}</span>
-        <div className="h-[1px] w-12 bg-emerald-500/30" />
-        <span className="text-[9px] font-black tracking-[0.5em] text-gray-500 uppercase">{tag}</span>
-      </div>
-      <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter mb-8 leading-none">{title}</h2>
-      <p className="text-gray-400 text-lg uppercase leading-relaxed font-medium tracking-tight max-w-lg">{desc}</p>
-      <button className="mt-10 flex items-center gap-3 text-emerald-500 text-[10px] font-black uppercase tracking-[0.3em] hover:text-white transition-colors">
-        Read Protocol <ArrowRight size={14} />
-      </button>
-    </div>
+const ProjectionBar = ({ day, height, val, alert }) => (
+  <div className="flex flex-col items-center justify-end h-full">
+    <span className={`text-[9px] mb-2 ${alert ? "text-red-500" : "text-emerald-400"}`}>
+      {val}
+    </span>
+    <div
+      style={{ height }}
+      className={`w-3 rounded-t-full ${alert ? "bg-red-500" : "bg-emerald-500"}`}
+    />
+    <span className={`mt-3 text-[9px] font-black ${alert ? "text-red-500" : "text-gray-500"}`}>
+      {day}
+    </span>
+  </div>
+);
+
+const WaterInsight = ({ icon, title, desc }) => (
+  <div className="p-8 bg-white/[0.03] border border-white/5 rounded-3xl hover:-translate-y-1 transition-all">
+    <div className="mb-4">{icon}</div>
+    <h4 className="text-sm font-bold text-white mb-2 uppercase">{title}</h4>
+    <p className="text-xs text-gray-500">{desc}</p>
   </div>
 );
 

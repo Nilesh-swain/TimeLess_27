@@ -10,9 +10,10 @@ import EchoBotPage from "../features/chat/pages/EchoBotPage";
 import SegregatorPage from "../features/segregator/pages/SegregatorPage";
 import SignupPage from "../features/auth/pages/SignupPage";
 import SigninPage from "../features/auth/pages/SigninPage";
-
-// 🔥 ADD THIS IMPORT
 import LeadershipPage from "../features/leadership/LeadershipPage";
+
+// 🔥 1. IMPORT YOUR NEW ANALYTICS PAGE
+import AnalyticsPage from "../features/Analytics/AnalyticsPage.jsx"; 
 
 const AppNavigator = () => {
   return (
@@ -29,6 +30,10 @@ const AppNavigator = () => {
       {/* Dashboard Layout */}
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<OverviewPage />} />
+        
+        {/* 🔥 2. CONNECTED ANALYTICS ROUTE */}
+        <Route path="analytics" element={<AnalyticsPage />} /> 
+
         <Route path="map" element={<MapPage />} />
         <Route path="chatbot" element={<EchoBotPage />} />
         <Route path="segregator" element={<SegregatorPage />} />
